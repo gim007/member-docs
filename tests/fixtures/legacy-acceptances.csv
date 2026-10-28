@@ -1,0 +1,11 @@
+email,template_slug,version,accepted_at,ip
+alice@example.com,terms,1,2023-01-15 09:30:00,198.51.100.10
+bob@example.com,terms,1,2023-02-01T10:00:00+02:00,
+alice@example.com,terms,2,2024-03-01,2001:db8::5
+alice@example.com,terms,1,2023-01-16 10:00:00,198.51.100.10
+ghost@example.com,terms,1,2023-01-15 09:30:00,
+bob@example.com,terms,2,2023-02-30 10:00:00,
+bob@example.com,terms,9,2023-02-01 10:00:00,
+bob@example.com,legacy-rules,2,2022-06-01 08:00:00,
+not-an-email,terms,1,2023-01-01 00:00:00,
+bob@example.com,terms,2,2023-05-05 12:00:00,999.0.0.1

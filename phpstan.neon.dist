@@ -1,0 +1,15 @@
+parameters:
+	level: 6
+	paths:
+		- member-docs.php
+		- uninstall.php
+		- src
+		- templates
+	scanFiles:
+		- vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
+		- vendor/php-stubs/wp-cli-stubs/wp-cli-commands-stubs.php
+		- vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+	dynamicConstantNames:
+		- WP_CLI
+	bootstrapFiles:
+		- tests/phpstan-bootstrap.php

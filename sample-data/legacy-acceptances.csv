@@ -1,0 +1,32 @@
+email,template_slug,version,accepted_at,ip
+member01@example.com,membership-terms,1,2023-01-09 08:15:00,198.51.100.11
+member02@example.com,membership-terms,1,2023-01-11 17:42:10,198.51.100.12
+member03@example.com,membership-terms,1,2023-02-02 09:05:33,198.51.100.13
+member04@example.com,membership-terms,1,2023-02-14 12:00:00,2001:db8::4
+member05@example.com,membership-terms,1,2023-03-01 07:30:00,198.51.100.15
+member06@example.com,membership-terms,1,2023-03-18 21:11:45,
+member07@example.com,membership-terms,1,2023-04-04 10:10:10,198.51.100.17
+member08@example.com,membership-terms,1,2023-05-27 14:48:02,198.51.100.18
+member09@example.com,membership-terms,1,2023-06-30 16:20:00,198.51.100.19
+member10@example.com,membership-terms,1,2023-08-12 11:01:59,198.51.100.20
+member11@example.com,membership-terms,1,2023-09-09 09:09:09,198.51.100.21
+member12@example.com,membership-terms,1,2023-11-23 18:30:00,198.51.100.22
+member05@example.com,membership-terms,2,2024-02-01T09:00:00+01:00,198.51.100.15
+member06@example.com,membership-terms,2,2024-02-03,198.51.100.16
+member09@example.com,privacy-policy,1,2024-01-10 10:00:00,198.51.100.19
+member10@example.com,privacy-policy,1,2024-01-12 13:37:00,198.51.100.20
+MEMBER11@EXAMPLE.COM,privacy-policy,1,2024-01-15 08:00:00,198.51.100.21
+member12@example.com,privacy-policy,1,2024-01-20 19:45:00,198.51.100.22
+member01@example.com,privacy-policy,1,2023-12-01 10:00:00,198.51.100.11
+member02@example.com,privacy-policy,1,2023-12-02 10:00:00,198.51.100.12
+member03@example.com,membership-terms,1,2023-02-03 10:00:00,198.51.100.13
+member07@example.com,membership-terms,1,2023-04-05 08:00:00,198.51.100.17
+former.member@example.com,membership-terms,1,2022-12-01 10:00:00,198.51.100.30
+member08@example.com,privacy-policy,1,2023-13-45 10:00:00,198.51.100.18
+member04@example.com,privacy-policy,1,last tuesday,198.51.100.14
+not-an-email,membership-terms,1,2023-01-01 00:00:00,198.51.100.31
+member05@example.com,house-rules,1,2022-06-01 08:00:00,198.51.100.15
+member06@example.com,membership-terms,7,2023-03-18 21:11:45,198.51.100.16
+member07@example.com,privacy-policy,1,2023-04-04 10:10:10,300.1.1.1
+member08@example.com,membership-terms,one,2023-05-27 14:48:02,198.51.100.18
+member09@example.com,membership-terms,2,2099-01-01 00:00:00,198.51.100.19

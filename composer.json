@@ -1,0 +1,55 @@
+{
+    "name": "gim007/member-docs",
+    "description": "Versioned member documents with an auditable acceptance log, PDF copies and an optional WooCommerce checkout integration.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=8.1",
+        "dompdf/dompdf": "^3.1"
+    },
+    "require-dev": {
+        "php-stubs/woocommerce-stubs": "^10.0",
+        "php-stubs/wp-cli-stubs": "^2.11",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^9.6",
+        "szepeviktor/phpstan-wordpress": "^2.0",
+        "wp-cli/php-cli-tools": "^0.12",
+        "wp-coding-standards/wpcs": "^3.1",
+        "yoast/phpunit-polyfills": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MemberDocs\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MemberDocs\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "8.1.0"
+        },
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "scripts": {
+        "test": "npx wp-env run tests-cli --env-cwd=wp-content/plugins/member-docs vendor/bin/phpunit",
+        "test:unit": "phpunit --testsuite unit --bootstrap vendor/autoload.php",
+        "lint": "phpcs",
+        "lint:fix": "phpcbf",
+        "analyse": "phpstan analyse --memory-limit=1G"
+    },
+    "scripts-descriptions": {
+        "test": "Run unit and integration tests inside wp-env.",
+        "test:unit": "Run the WordPress-free unit tests on the host.",
+        "lint": "Check coding standards (WPCS).",
+        "lint:fix": "Fix coding standards violations that can be fixed automatically.",
+        "analyse": "Run PHPStan static analysis."
+    }
+}

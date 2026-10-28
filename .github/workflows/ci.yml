@@ -1,0 +1,101 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  phpcs:
+    name: PHPCS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: cs2pr
+      - uses: ramsey/composer-install@v3
+      - run: vendor/bin/phpcs -q --report=checkstyle | cs2pr
+
+  phpstan:
+    name: PHPStan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+      - uses: ramsey/composer-install@v3
+      - run: composer analyse -- --error-format=github
+
+  javascript:
+    name: JavaScript tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+  phpunit:
+    name: PHPUnit (PHP ${{ matrix.php }}, WP ${{ matrix.wp }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.1', '8.2', '8.3']
+        wp: ['latest', 'previous']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - uses: ramsey/composer-install@v3
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Unit tests (without WordPress)
+        run: composer test:unit
+
+      - name: Resolve WordPress version
+        run: |
+          if [ "${{ matrix.wp }}" = "previous" ]; then
+            versions=$(curl -fsSL https://api.wordpress.org/core/stable-check/1.0/ | jq -r 'keys[]' | sort -V)
+            latest_branch=$(echo "$versions" | tail -n 1 | cut -d. -f1,2)
+            previous=$(echo "$versions" | awk -F. -v branch="$latest_branch" '($1 "." $2) != branch' | tail -n 1)
+            echo "Testing against WordPress $previous"
+            echo "WP_ENV_CORE=https://wordpress.org/wordpress-$previous.zip" >> "$GITHUB_ENV"
+          fi
+
+      - name: Start wp-env
+        env:
+          WP_ENV_PHP_VERSION: ${{ matrix.php }}
+        run: npx wp-env start
+
+      - name: Unit and integration tests
+        run: composer test
+
+      - name: WP-CLI smoke test
+        run: |
+          npx wp-env run cli wp member-docs seed
+          npx wp-env run cli wp member-docs migrate wp-content/plugins/member-docs/sample-data/legacy-acceptances.csv --dry-run
+          npx wp-env run cli wp member-docs migrate wp-content/plugins/member-docs/sample-data/legacy-acceptances.csv
+          npx wp-env run cli wp member-docs verify
